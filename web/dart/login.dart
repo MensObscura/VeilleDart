@@ -7,7 +7,12 @@ void main(){
 	// InputElement messageField = querySelector("#message-input");
 
 	var fbLogin = new Firebase("https://chat-veille-techno.firebaseio.com/Users/Login");
-  print("toto");
+
+  fbLogin.onValue.listen((event) {
+    List users = event.snapshot.val();
+        print(users);
+  });
+
   // print(fbLogin.onChildAdded);
 
   // fbLogin.((FB.Event event){
