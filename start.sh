@@ -1,6 +1,13 @@
 echo '==== Hello ===='
 echo ''
 
+if [ -f ~/.bashrc  ]; then
+    echo ".bashrc found"
+else
+    touch ~/.bashrc
+    echo ".bashrc created"
+fi
+
 if [ -f ./.bashsave  ]; then
     echo "Vous avez déjà start"
 else

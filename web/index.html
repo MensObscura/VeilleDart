@@ -1,11 +1,25 @@
 <body>
 <h1>ChatClient</h1>
 
+
+<div>
+<ul id="channels"></ul>
+</div>
 <input id="nickname" type="text" /><button id="savenickname">Save</button>
 <div id="output"></div>
 <textarea id="input"></textarea>
 <button id="send">Send</button>
 
-<script type="application/dart" src="dart/chatclient.dart"></script>
+<script type="application/dart" src="dart/Client.dart"></script>
 <script src="../packages/browser/dart.js"></script>
+
+
+<form action="http://localhost:8080"
+     method="GET">
+
+   
+   <input type="submit" value="Refresh">
+    </form>
+
+
 </body>
