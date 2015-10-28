@@ -1,7 +1,7 @@
 import 'dart:core';
-import 'User.dart';
 import 'dart:io';
 import 'dart:core';
+import 'User.dart';
 
 
 class Channel {
@@ -28,22 +28,18 @@ class Channel {
 	List<WebSocket> get connections => _connections;
 	
 	void addUser(User user){
+
 		_users.add(user);
-		
-		
-		this.send("*** "+user.name+ " join the channel " + _name+" ***");
-		print ('adding');
 		user.channel=this._name;
-		
-		
+
+		this.send("*** "+user.name+ " joined the channel " + _name+" ***");
+		print ('adding');
 	
 	}
 	
 	void add(WebSocket con){
-		
+
 		_connections.add(con);
-		
-	
 	}
 	
 	void remove(WebSocket con){
@@ -58,40 +54,38 @@ class Channel {
 	
 	void send(message){
 	
-	 for (WebSocket connection in _connections) {
-              connection.add(message);
-            }
+		for (WebSocket connection in _connections) {
+	        connection.add(message);
+	    }
 	}
 	
 	void run(){
 	
-	HttpServer.bind("0.0.0.0", PORT).then((HttpServer server) {
-    print('Server listening on port ${PORT}.');
-    server.listen((HttpRequest request) {
-      if (WebSocketTransformer.isUpgradeRequest(request)) {
-        WebSocketTransformer.upgrade(request).then((WebSocket ws) {
-          this.add(ws);
-          print('Client connected, there are now ${_connections.length} client(s) connected.');
-          ws.listen((String message) {
-         
-          	
-          
-       
-           	this.send(message);
-          
-          },
-          onDone: () {
-            this.remove(ws);
-            print('Client disconnected, there are now ${_connections.length} client(s) connected.');
-          });
-        });
-      } else {
-        request.response.statusCode = HttpStatus.FORBIDDEN;
-        request.response.reasonPhrase = 'Websocket connections only!';
-        request.response.close();
-      }
-    });
-  });
+		HttpServer.bind("0.0.0.0", PORT).then((HttpServer server) {
+		    print('Server listening on port ${PORT}.');
+		    
+		    server.listen((HttpRequest request) {
+		     if (WebSocketTransformer.isUpgradeRequest(request)) {
+		       WebSocketTransformer.upgrade(request).then((WebSocket ws) {
+		          this.add(ws);
+
+		          print('Client connected, there are now ${_connections.length} client(s) connected.');
+
+		          ws.listen((String message) {		       
+		           	this.send(message);
+		          },
+		          onDone: () {
+		            this.remove(ws);
+		            print('Client disconnected, there are now ${_connections.length} client(s) connected.');
+		          });
+		        });
+		      } else {
+		        request.response.statusCode = HttpStatus.FORBIDDEN;
+		        request.response.reasonPhrase = 'Websocket connections only!';
+		        request.response.close();
+		      }
+		    });
+		});
 	
 	}
 	
