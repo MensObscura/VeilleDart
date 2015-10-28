@@ -28,7 +28,7 @@ void main() {
   
   channels.onClick.listen((MouseEvent event) {
   
-  window.open("channels.html","lol",["","MsgWindows","width=640,height=480,top=100,left=100"]);
+  window.open("channels.html","lol","MsgWindows, width=640,height=480,top=100,left=100");
   
   });
 
