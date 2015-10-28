@@ -2,18 +2,19 @@ import 'dart:html';
 import 'dart:convert' show UTF8, JSON;
 
   ButtonElement add = querySelector('#add');
-  UListElement ulChannel =  querySelector('#ulchannels');
+  DivElement divChannel =  querySelector('#divchannels');
   ButtonElement join = querySelector('#join');
   DivElement adding = querySelector('#adding');
   InputElement name;
+  Storage localStorage = window.localStorage;
+  String nickname =localStorage['username'];
+    String channel =localStorage['channel'];
+    String selected ;
 void main() {
 
 
 
-  
-  
-  
- 
+   
 
 	getChannels();
  
@@ -29,7 +30,7 @@ void main() {
   
     add.onClick.listen((MouseEvent event) {
   	 add.disabled=true;
-  	 
+  	   adding.innerHtml="";
       adding.innerHtml="<label>Nom:</label><input type='login' class='form-control' id='nom'><button class='btn btn-default' id='send' >Add Channel</button>";
 	
 	ButtonElement send = querySelector('#send');
@@ -40,6 +41,7 @@ void main() {
 		 add.disabled=false;
   	 
       adding.innerHtml="";
+      
 	});
 	
 	
@@ -49,8 +51,17 @@ void main() {
 }
 
 joinChannel(){
-window.alert("join");
-window.close();
+
+if(selected != null && selected != ''){
+var url = 'http://localhost:8080';
+    var data = {'nom':'${selected}','user':'${nickname}','channel':'${channel}','action':'join'};
+  
+    var request = new HttpRequest()..open('POST', url)
+    				               ..send(JSON.encode(data));
+window.location.assign('chat.html');
+}else{
+adding.innerHtml="<p>Veuillez choisir un channel</p>";
+}
 }
 
 
@@ -59,17 +70,24 @@ addChannel(){
 
 
 var url = 'http://localhost:8080';
-    var data = {'nom':'${name.value}'};
+    var data = {'nom':'${name.value}','user':'${nickname}','channel':'${channel}','action':'add'};
+  
     var request = new HttpRequest()..open('POST', url)
     				               ..send(JSON.encode(data));
-
+	
 }
+
+
+
 
 
 getChannels(){
 
+
+
+
   requestComplete(HttpRequest request) {
-    ulChannel.innerHtml='';
+    divChannel.innerHtml='';
     if (request.status == 200) {
       
              
@@ -77,12 +95,21 @@ getChannels(){
   	 Map jsonData = JSON.decode(jsonString);
       List<String> channelList = jsonData['channels'];
       for (int i = 0; i < channelList.length; i++) {
-        ulChannel.children.add(new LIElement()..text = channelList[i]);
+        divChannel.innerHtml+= "<input type='radio' name='channel' value='${channelList[i]}'>${channelList[i]}</br>";
       }
     } else {
  
-      ulChannel.children.add(new LIElement()..text = 'Request failed, status=${request.status}');
+      divChannel.innerHtml+= "<input type='radio' name='channel' value='fail'>Request failed, status=${request.status}";
     }
+    
+    	queryAll('[name="channel"]').forEach((InputElement radioButton) {
+    radioButton.on['click'].listen((e) {
+      InputElement clicked = e.target;
+      print("The channel is ${clicked.value}");
+      selected =clicked.value;
+    });
+  });
+
   }
   
  var url = 'http://localhost:8080';

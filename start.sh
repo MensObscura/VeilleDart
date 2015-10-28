@@ -8,14 +8,14 @@ else
     echo ".bashrc created"
 fi
 
-if [ -f ./.bashsave  ]; then
+if [ -f ~/.bashsave  ]; then
     echo "Vous avez déjà start"
 else
   
 
 echo '----------saving your current .bashrc----------'
 
-cp -v ~/.bashrc ./.bashsave
+cp -v ~/.bashrc ~/.bashsave
 
 echo '----------Recuperation de DART SDK------------'
 

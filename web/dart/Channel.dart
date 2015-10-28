@@ -27,13 +27,46 @@ class Channel {
 	
 	List<WebSocket> get connections => _connections;
 	
+	
+	User getUser(String name){
+
+		for(User user in _users){
+		
+			if(user.name == name){
+			
+				return user;
+			
+			}
+		
+		}	
+	
+	
+	}
+	
+		int getIndexUser(String name){
+		int i =0;
+		for(User user in _users){
+		
+			if(user.name == name){
+			
+				return i;
+			
+			}
+			i++;
+		
+		}	
+		return -1;
+	
+	}
+	
+	
 	void addUser(User user){
 
 		_users.add(user);
 		user.channel=this._name;
 
 		this.send("*** "+user.name+ " joined the channel " + _name+" ***");
-		print ('adding');
+		print ("*** "+user.name+ " joined the channel " + _name+" ***");
 	
 	}
 	
@@ -42,13 +75,32 @@ class Channel {
 		_connections.add(con);
 	}
 	
+	
+		
+	void removeUser(String user){
+		
+		int index  = this.getIndexUser(user);
+		
+		if( index > -1 ){
+		WebSocket con = this._connections.elementAt(index);
+		this._users.removeAt(index);
+		this._connections.removeAt(index);
+		this.send("*** "+user+ " left the channel " + _name+" ***");
+		print("*** "+user+ " left the channel " + _name+" ***");
+		}
+	}
+	
+	
 	void remove(WebSocket con){
 		
 		int index  = this._connections.indexOf(con);
+		
+		if( index > -1 ){
 		User user = this._users.elementAt(index);
-		this._users.remove(user);
-		this._connections.remove(con);
+		this._users.removeAt(index);
+		this._connections.removeAt(index);
 		this.send("*** "+user.name+ " left the channel " + _name+" ***");
+		}
 	
 	}
 	
@@ -71,14 +123,12 @@ class Channel {
 		       WebSocketTransformer.upgrade(request).then((WebSocket ws) {
 		          this.add(ws);
 
-		          print('Client connected, there are now ${_connections.length} client(s) connected.');
 
 		          ws.listen((String message) {		       
 		           	this.send(message);
 		          },
 		          onDone: () {
 		            this.remove(ws);
-		            print('Client disconnected, there are now ${_connections.length} client(s) connected.');
 		          });
 		        });
 		      } else {

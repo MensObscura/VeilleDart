@@ -17,6 +17,7 @@ void main() async {
       post();
 
       localStorage['username'] = nickname.value;
+       localStorage['channel'] = 'Hall';
       window.location.assign('chat.html');
 
     } else {
@@ -29,7 +30,7 @@ void main() async {
 
 Future post() async{
 	var url = 'http://localhost:8080';
-    var data = {'pseudo':'${nickname.value}'};
+    var data = {'pseudo':'${nickname.value}','channel':'Hall'};
     var request = new HttpRequest()..open('POST', url)
     				                       ..send(JSON.encode(data));
 

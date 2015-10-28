@@ -15,7 +15,6 @@ void main() {
   Storage localStorage = window.localStorage;
   String nickname =localStorage['username'];
   
-  print ("hello");
 
   send.onClick.listen((MouseEvent event) {
       String message = input.value;
@@ -28,7 +27,10 @@ void main() {
   
   channels.onClick.listen((MouseEvent event) {
   
-  window.open("channels.html","lol","MsgWindows, width=640,height=480,top=100,left=100");
+
+  
+  ws.close();
+  window.location.assign('channels.html');
   
   });
 
