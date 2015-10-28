@@ -1,32 +1,57 @@
 import 'dart:html';
+import 'dart:convert' show UTF8, JSON;
 
 
 void main() {
-  InputElement nickname = querySelector('#nickname');
   DivElement output = querySelector('#output');
   TextAreaElement input = querySelector('#input');
   ButtonElement send = querySelector('#send');
-  ButtonElement savenickname = querySelector('#savenickname');
-  UListElement ulChannel =  querySelector('#channels');
+  ButtonElement channels = querySelector('#channels');
+  UListElement ulChannel =  querySelector('#ulchannels');
   WebSocket ws = new WebSocket('ws://localhost:9090');
+  Storage localStorage = window.localStorage;
+  String nickname =localStorage['username'];
+  
+  print ("hello");
 
 
-  savenickname.onClick.listen((MouseEvent event) {
-    if (nickname.value != '') {
-      nickname.readOnly = true;
-       ws.send("NEW:${nickname.value}");
-    }
-  });
 
   send.onClick.listen((MouseEvent event) {
-    if (nickname.value != '' && nickname.readOnly) {
+  
       String message = input.value;
       input.value = '';
       input.focus();
-      ws.send("${nickname.value}: ${message}");
-    }
+      ws.send(nickname+" dit : ${message}");
+    
   });
   
+   requestComplete(HttpRequest request) {
+  if (request.status == 200) {
+    List<String> channelList = JSON.decode(request.response);
+    for (int i = 0; i < channelList.length; i++) {
+      ulChannel.children.add(new LIElement()..text = channelList[i]);
+    }
+  } else {
+    ulChannel.children.add(new LIElement()
+      ..text = 'Request failed, status=${request.status}');
+  }
+}
+  
+  channels.onClick.listen((MouseEvent event) {
+  
+      var url = 'http://localhost:8080';
+      print(url);
+      var request = new HttpRequest()
+  		  ..open('GET', url)
+ 		  ..onLoadEnd.listen((e) => requestComplete(httpRequest))
+  		  ..send('');  
+  });
+
+  
+ 
+
+  
+
 
   ws.addEventListener('message', (event) {
      String message = event.data;
@@ -36,3 +61,5 @@ void main() {
   
   
 }
+
+

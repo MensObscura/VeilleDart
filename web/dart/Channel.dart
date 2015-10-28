@@ -12,7 +12,7 @@ class Channel {
 
 	List<WebSocket> _connections;
 
-	Channel(this._name){
+	Channel(this._name) {
 
 		_users = new List<User>();
 		_connections = new List<WebSocket>();
@@ -28,8 +28,14 @@ class Channel {
 	List<WebSocket> get connections => _connections;
 	
 	void addUser(User user){
-		
 		_users.add(user);
+		
+		
+		this.send("*** "+user.name+ " join the channel " + _name+" ***");
+		print ('adding');
+		user.channel=this._name;
+		
+		
 	
 	}
 	
@@ -42,7 +48,11 @@ class Channel {
 	
 	void remove(WebSocket con){
 		
+		int index  = this._connections.indexOf(con);
+		User user = this._users.elementAt(index);
+		this._users.remove(user);
 		this._connections.remove(con);
+		this.send("*** "+user.name+ " left the channel " + _name+" ***");
 	
 	}
 	
@@ -63,15 +73,12 @@ class Channel {
           this.add(ws);
           print('Client connected, there are now ${_connections.length} client(s) connected.');
           ws.listen((String message) {
-          List <String> tmp = message.split(":");
-          if(tmp[0] == "NEW"){
+         
+          	
           
-          	this.addUser(tmp[1]);
-          	this.send("*** "+tmp[1]+ " join the channel " + _name+" ***");
-          
-          }else{
+       
            	this.send(message);
-           }
+          
           },
           onDone: () {
             this.remove(ws);

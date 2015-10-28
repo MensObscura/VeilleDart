@@ -1,30 +1,26 @@
 import 'dart:io';
 import 'dart:core';
 import 'Channel.dart';
-
+import 'dart:convert';
+import 'User.dart';
 
 
 List<Channel> channels;
+Channel global;
 
 void main() async{
   
-  channels = new List<Channels>();
   
- await chat();
- await test();
+  
+
+  rest();
  
 	
 }
 
-Future chat() async{
 
- Channel global= new Channel('Hall');
-  
-  channels.add(global);
-
-}
-
-Future test() async{
+Future rest() async{
+	
 	var requestServer =
       await HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 8080);
   print('listening on localhost, port ${requestServer.port}');
@@ -36,10 +32,26 @@ Future test() async{
 }
 
 
-void handleRequest(HttpRequest request) {
+void handleRequest(HttpRequest request) async{
   try {
     if (request.method == 'GET') {
-		request.send(jsonData);
+    		String jsonString = getChannels();
+    		print(jsonString);
+    		Map jsonData = JSON.decode(jsonString);
+ 		HttpResponse res = request.response;
+  		res.write('${jsonString }');
+  		res.close();
+    } else  if (request.method == 'POST') {
+		var jsonString = await request.transform(UTF8.decoder).join();
+		Map jsonData = JSON.decode(jsonString);
+		if(global == null){
+		global = await new Channel('Hall');
+  			if(channels == null){
+  				channels = await new List<Channels>();
+  			}
+  			channels.add(global);
+ 		 }
+		global.addUser(new User(jsonData['pseudo']));
     } else {
 	request.response..statusCode = HttpStatus.METHOD_NOT_ALLOWED
      	           ..write('Unsupported request: ${request.method}.')
@@ -50,6 +62,22 @@ void handleRequest(HttpRequest request) {
   }
   print('Request handled.');
 }
+
+
+
+String getChannels(){
+String list ='''{"channels":[''';
+if(channels != null){
+ for(Channel channel in channels){
+    list += '''"${channel.name}",''';
+ }
+ }
+ list = list.substring(0,list.length-1);
+list+=''']}''';
+return list;
+}
+
+
 
 
 
