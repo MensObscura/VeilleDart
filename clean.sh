@@ -4,9 +4,9 @@ echo ''
 echo '----------retablissement de votre bashrc----------'
 
 
-if [ -f ./.bashsave  ]; then
+if [ -f ~/.bashsave  ]; then
    rm -f ~/.bashrc  
-   mv ./.bashsave  ~/.bashrc
+   mv ~/.bashsave  ~/.bashrc
 else
    echo "Vous avez déjà clean"
    exit
