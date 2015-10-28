@@ -27,11 +27,16 @@ void main() {
   
    requestComplete(HttpRequest request) {
     ulChannel.innerHtml='';
-
+  if (request.status == 200) {
     List<String> channelList = JSON.decode(request.response);
     for (int i = 0; i < channelList.length; i++) {
       ulChannel.children.add(new LIElement()..text = channelList[i]);
-}
+    }
+  } else {
+ 
+    ulChannel.children.add(new LIElement()
+      ..text = 'Request failed, status=${request.status}');
+  }
 }
   
   channels.onClick.listen((MouseEvent event) {
