@@ -1,13 +1,14 @@
-<body>
-<h1>ChatClient</h1>
-
-
-<div>
+<html>
+<head>
+	<title>Chat</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+<div class="form-group" >
 <ul id="ulchannels"></ul>
 </div>
-<div id="output"></div>
-<textarea id="input"></textarea>
-<button id="send">Send</button>
+<div class="form-group"  id="output"></div>
+<textarea  class="form-control" id="input"></textarea>
+<button class="btn btn-default" id="send">Send</button>
 
 <script type="application/dart" src="dart/Client.dart"></script>
 <script src="../packages/browser/dart.js"></script>
@@ -18,3 +19,4 @@
    
 
 </body>
+<html>
