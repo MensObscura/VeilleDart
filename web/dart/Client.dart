@@ -26,25 +26,22 @@ void main() {
   });
   
    requestComplete(HttpRequest request) {
-  if (request.status == 200) {
+    ulChannel.innerHtml='';
+
     List<String> channelList = JSON.decode(request.response);
     for (int i = 0; i < channelList.length; i++) {
       ulChannel.children.add(new LIElement()..text = channelList[i]);
-    }
-  } else {
-    ulChannel.children.add(new LIElement()
-      ..text = 'Request failed, status=${request.status}');
-  }
+}
 }
   
   channels.onClick.listen((MouseEvent event) {
   
       var url = 'http://localhost:8080';
       print(url);
-      var request = new HttpRequest()
-  		  ..open('GET', url)
- 		  ..onLoadEnd.listen((e) => requestComplete(httpRequest))
-  		  ..send('');  
+      var request = new HttpRequest();
+      request..open('GET', url)
+ 		..onLoadEnd.listen((e) => requestComplete(request))
+  		..send('');  
   });
 
   
