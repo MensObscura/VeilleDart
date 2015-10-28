@@ -24,32 +24,20 @@ void main() {
       ws.send(nickname+" dit : ${message}");
   });
   
-  requestComplete(HttpRequest request) {
-    ulChannel.innerHtml='';
-    if (request.status == 200) {
-      List<String> channelList = JSON.decode(request.responseText);
-      for (int i = 0; i < channelList.length; i++) {
-        ulChannel.children.add(new LIElement()..text = channelList[i]);
-      }
-    } else {
  
-      ulChannel.children.add(new LIElement()..text = 'Request failed, status=${request.status}');
-    }
-  }
   
   channels.onClick.listen((MouseEvent event) {
   
-    var url = 'http://localhost:8080';
-    print(url);
-    var request = new HttpRequest();
-    request..open('GET', url)
-     		   ..onLoadEnd.listen((e) => requestComplete(request))
-      		 ..send('');
+  window.open("channels.html","lol",["","MsgWindows","width=640,height=480,top=100,left=100"]);
+  
   });
 
   ws.addEventListener('message', (event) {
      String message = event.data;
      output.innerHtml += '<p>${message}</p>';
   }); 
+  
+  
+  
   
 }

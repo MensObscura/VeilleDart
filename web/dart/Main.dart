@@ -37,61 +37,24 @@ Future rest() async {
 
 }
 
-/*
-void handleRequest(HttpRequest request) async {
 
-  try {
-    if (request.method == 'GET') {
-      String jsonString = getChannels();
-      print(jsonString);
-      Map jsonData = JSON.decode(jsonString);
-      HttpResponse res = request.response;
-      res.write('${jsonString }');
-      res.close();
-
-    } else  if (request.method == 'POST') {
-      var jsonString = await request.transform(UTF8.decoder).join();
-      Map jsonData = JSON.decode(jsonString);
-
-      if(global == null){
-        global = await new Channel('Hall');
-
-        if(channels == null){
-          channels = await new List<Channels>();
-        }
-
-        channels.add(global);
-      }
-
-      global.addUser(new User(jsonData['pseudo']));
-
-    } else {
-     request.response
-     ..statusCode = HttpStatus.METHOD_NOT_ALLOWED
-     ..write('Unsupported request: ${request.method}.')
-     ..close();
-   }
-  } catch (e) {
-    print('Exception in handleRequest: $e');
-  }
-    print('Request handled.');
-}
-*/
 
 void handleGetRequest(HttpRequest request){
     String jsonString = getChannels();
     print(jsonString);
-    Map jsonData = JSON.decode(jsonString);
+
 
     HttpResponse res = request.response;
     addCorsHeaders(res);   
-    res.write('${jsonString }');
+    res.write(jsonString);
     res.close();
 }
 
 void handlePostRequest(HttpRequest request) async{
   var jsonString = await request.transform(UTF8.decoder).join();
   Map jsonData = JSON.decode(jsonString);
+
+ if(jsonData['pseudo'] != null && jsonData['pseudo'] != ''){
 
   if(global == null){
     global = await new Channel('Hall');
@@ -103,6 +66,17 @@ void handlePostRequest(HttpRequest request) async{
     channels.add(global);
   }
   global.addUser(new User(jsonData['pseudo']));
+  }
+  
+  
+ if(jsonData['nom'] != null && jsonData['nom'] != ''){
+
+    channels.add(new Channel(jsonData['nom']));
+
+  }
+  
+  
+  
 
 }
 
