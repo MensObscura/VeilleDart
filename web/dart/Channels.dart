@@ -36,6 +36,7 @@ void main() {
 	name = querySelector('#nom');
 	send.onClick.listen((MouseEvent event) {
 		addChannel();
+		getChannels();
 		 add.disabled=false;
   	 
       adding.innerHtml="";
