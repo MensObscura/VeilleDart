@@ -58,6 +58,7 @@ var url = 'http://localhost:8080';
   
     var request = new HttpRequest()..open('POST', url)
     				               ..send(JSON.encode(data));
+localStorage['channel'] = '${selected}';
 window.location.assign('chat.html');
 }else{
 adding.innerHtml="<p>Veuillez choisir un channel</p>";
