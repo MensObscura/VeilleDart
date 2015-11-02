@@ -1,3 +1,6 @@
+
+cat dart.txt
+
 echo '=====Clean====='
 echo ''
 
