@@ -1,21 +1,45 @@
 <html>
-<head>
-	<title>Chat</title>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-</head>
-<body>
-<ul  class="list-unstyled" id="users"> </ul>
-<div class="form-group"  id="output"></div>
-<textarea  class="form-control" id="input" ></textarea>
-<button class="btn btn-default" id="send">Send</button>
+    <head>
+        <title>Chat</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+    </head>
+    <body>
 
-<script type="application/dart" src="dart/Client.dart"></script>
-<script src="../packages/browser/dart.js"></script>
+        <div class="container">
+
+            <div class="row">
+                <h1 class="text-center">Chat</h1>
+                <div class="chat-window col-md-10">
+                    <div class="form-group"  id="output"></div>
+                    <textarea class="form-control" id="input" ></textarea>
+                    <button class="btn btn-default" id="send">Send</button>
+                    <button type="submit" class="btn btn-default" id="channels" >Channels</button>
+                </div>
+
+                <div class="user-list col-md-2">
+                    <p id="list-title">Users connected :</p> 
+
+                    <ul  class="list-unstyled" id="users">
+                        <li>test</li>
+                        <li>deff</li>
+                        <li>edded</li>
+                        <li>deff</li>
+
+                    </ul>
+                </div>       
+
+            </div>
+
+        </div>
 
 
+        <script type="application/dart" src="dart/Client.dart"></script>
+        <script src="../packages/browser/dart.js"></script>
+        <script>
+       $('#output')[0].scrollHeight
+        </script>
 
-    <button type="submit" class="btn btn-default" id="channels" >Channels</button>
-   
 
-</body>
-<html>
+    </body>
+    <html>

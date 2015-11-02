@@ -1,22 +1,29 @@
 <html>
-<head>
-	<title>Login</title>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-</head>
-<body>
-	
-		<div class="form-group" >
-			<label for="login">Pseudo:</label>
-			<input type="login" class="form-control" id="pseudo" >
-		</div>
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
 
-		
-	
-	<button type="submit" class="btn btn-default" id="send" >Go</button>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center">Connexion au chat</h1>
+            <hr>
+            <div class="col-md-offset-4 col-md-4">
+                    <div class="form-group text-center" >
+                        <label for="login">Pseudo:</label>
+                        <input type="login" class="form-control" id="pseudo" >
+                    </div>
 
-<div id='error'></div>
+                    <button type="submit" class="btn btn-primary" id="send" >Go !</button>
 
-<script type="application/dart" src="dart/Index.dart"></script>
-<script src="../packages/browser/dart.js"></script>
-</body>
+                    <div id='error'></div>
+            </div>
+
+
+        </div>
+
+        <script type="application/dart" src="dart/Index.dart"></script>
+        <script src="../packages/browser/dart.js"></script>
+    </body>
 </html>
