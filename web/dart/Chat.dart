@@ -122,7 +122,6 @@ void run(){
 for (Channel channel in channels){
 
 if( channel.name == name){
-print('find');
 return i;
 }
 i++;
