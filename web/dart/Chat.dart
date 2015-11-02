@@ -107,7 +107,7 @@ void run(){
 		if( index > -1 ){
 		_channels.elementAt(channel).connections.removeAt(index);
 		User user = _channels.elementAt(channel).users.elementAt(index);
-		 _channels.elementAt(channel).removeUser(index);
+		 _channels.elementAt(channel).users.removeAt(index);
 		
 		this.send("*** "+user.name+ " left the channel " + name+" ***", name);
 		}else{

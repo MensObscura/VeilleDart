@@ -10,8 +10,23 @@ Storage localStorage = window.localStorage;
 void main() async {
 
   go.onClick.listen((MouseEvent event) {
-    String nick = nickname.value;
-    nick.trim();
+   	actionClick();
+  });
+
+nickname.onKeyPress.listen((KeyboardEvent event) {
+	
+	if (new KeyEvent.wrap(event).keyCode == KeyCode.ENTER) 
+	actionClick();
+});
+
+
+}
+
+void actionClick(){
+
+
+ String nick = nickname.value;
+    nick = nick.trim();
 
     if(nick != '') {
       post();
@@ -23,9 +38,7 @@ void main() async {
     } else {
       error.innerHtml = '<p>Le champ doit etre rempli</p>';
     }
-  });
-
-
+    
 }
 
 Future post() async{

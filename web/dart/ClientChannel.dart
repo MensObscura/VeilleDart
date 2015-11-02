@@ -3,40 +3,52 @@ import 'dart:convert' show UTF8, JSON;
 
 class ClientChannel {
 
+ String channel;
+ String nickname;
+ DivElement output;
+  TextAreaElement input;
+  ButtonElement send ;
+  ButtonElement channels;
+  UListElement ulUser ;
+  Storage localStorage ;
+ WebSocket ws ;
+  String address;
+
 
 ClientChannel(){
+
+ output = querySelector('#output');
+   input = querySelector('#input');
+  send = querySelector('#send');
+   channels = querySelector('#channels');
+   ulUser =  querySelector('#users');
+   localStorage = window.localStorage;
+  nickname =localStorage['username'];
+  channel =localStorage['channel'];
+  address ="ws://localhost:9090/${channel}";
+ 
 
 }
 
 void run(){
 
-  DivElement output = querySelector('#output');
-  TextAreaElement input = querySelector('#input');
-  ButtonElement send = querySelector('#send');
-  ButtonElement channels = querySelector('#channels');
-  UListElement ulChannel =  querySelector('#ulchannels');
-  Storage localStorage = window.localStorage;
-  String nickname =localStorage['username'];
-  String channel =localStorage['channel'];
-  String address ="ws://localhost:9090/${channel}";
-  bool  reconnectScheduled = false;
+ 
  
  print(address);
-  WebSocket ws = new WebSocket(address);
-
+  ws = new WebSocket(address);
 
   
 
   send.onClick.listen((MouseEvent event) {
-      String message = input.value;
-      input.value = '';      
-      input.focus();
-      print(nickname+" dit : ${message}");
-      ws.send(nickname+" dit : ${message}");
+     sendMessage();
   });
   
- 
-  
+ input.onKeyPress.listen((KeyboardEvent event) {
+	
+	if (new KeyEvent.wrap(event).keyCode == KeyCode.ENTER) 
+	sendMessage();
+});
+
   channels.onClick.listen((MouseEvent event) {
   
 
@@ -45,9 +57,13 @@ void run(){
   window.location.assign('channels.html');
   
   });
+  
 
   ws.addEventListener('message', (event) {
      String message = event.data;
+     
+     if(message.substring(0,3) == "***")
+      getUsers();
      
      output.innerHtml += '<p>${message}</p>';
   }); 
@@ -55,5 +71,56 @@ void run(){
   }
 
 
+
+void requestComplete(request){
+  ulUser.innerHtml='';
+   
+      var jsonString = request;
+  	 Map jsonData = JSON.decode(jsonString);
+      List<String> userList = jsonData['users'];
+      for (int i = 0; i < userList.length; i++) {
+        ulUser.innerHtml+= "<li>${userList[i]}</li>";
+      }
+   
+ 
+    
+    
+
+}
+
+void sendMessage(){
+ String message = input.value;
+ 
+
+    message = message.trim();
+
+    if(message != '') {
+     
+      input.value = '';      
+      input.focus();
+      print(nickname+" dit : ${message}");
+      ws.send(nickname+" dit : ${message}");
+      }
+}
+
+void getUsers(){
+
+
+var url = 'http://localhost:8080';
+    print(url);
+    var data = {'channel':'${channel}'};
+    Uri uri = new Uri(path: url, queryParameters : data);
+   HttpRequest.getString(uri.toString()).then((req){
+   
+    requestComplete(req);
+   
+   }) .catchError((Error error) {
+   
+   	  ulUser.innerHtml= "<li>Request failed</li>";
+   	  print(error.toString());
+    });
+
+
+}
 
 }

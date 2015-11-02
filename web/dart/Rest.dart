@@ -35,7 +35,23 @@ handleDefaultRequest(request);
 
 
 
-void handleGetRequest(HttpRequest request){
+void handleGetRequest(HttpRequest request) async{
+
+Map jsonData = request.uri.queryParameters;
+
+if(jsonData['channel'] != null && jsonData['channel'] != ''){
+
+String jsonString = getUsers(jsonData['channel']);
+print(jsonString);
+
+
+HttpResponse res = request.response;
+addCorsHeaders(res);   
+res.write(jsonString);
+res.close();
+
+}else{
+
 String jsonString = getChannels();
 print(jsonString);
 
@@ -44,6 +60,7 @@ HttpResponse res = request.response;
 addCorsHeaders(res);   
 res.write(jsonString);
 res.close();
+}
 }
 
 void handlePostRequest(HttpRequest request) async{
@@ -142,6 +159,37 @@ list = list.substring(0,list.length-1);
 list+=''']}''';
 
 return list;
+}
+
+
+
+
+
+String getUsers(String channel){
+
+int index = findChannel(channel);
+
+if(index > -1){
+Channel chan =_chat.channels.elementAt(index);
+
+String list ='''{"users":[''';
+
+if(chan != null && chan.users != null){
+
+for(User user in chan.users){
+list += '''"${user.name}",''';
+}
+
+}
+
+list = list.substring(0,list.length-1);
+list+=''']}''';
+
+return list;
+}else{
+
+ return '''{"users":["Channel not found"]}''';
+}
 }
 
 
