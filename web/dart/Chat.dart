@@ -118,6 +118,7 @@ void run(){
 	
 	
 	int getChannel(String name){
+try{
 	int i =0;
 for (Channel channel in channels){
 
@@ -129,6 +130,10 @@ i++;
 
 print('nop ${name} ');
 return -1;
+}Exception catch(e){
+print('Unknown exception: $e');
+return '''{"channels":["fail"]}''';
+}
 	
 	}
 	
