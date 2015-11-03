@@ -79,6 +79,9 @@ _chat.channels = await new List<Channels>();
 _chat.channels.add(_chat.global);
 }
 _chat.global.addUser(new User(jsonData['pseudo']));
+HttpResponse res = request.response;
+addCorsHeaders(res);   
+res.close();
 }
 
 

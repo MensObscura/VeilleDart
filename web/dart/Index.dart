@@ -33,7 +33,7 @@ void actionClick(){
 
       localStorage['username'] = nickname.value;
        localStorage['channel'] = 'Hall';
-      window.location.assign('chat.html');
+
 
     } else {
       error.innerHtml = '<p>Le champ doit etre rempli</p>';
@@ -41,10 +41,18 @@ void actionClick(){
     
 }
 
+
+void redirection(){
+ window.location.assign('chat.html');
+}
+
 Future post() async{
+
+
 	var url = 'http://172.28.1.153:8080';
     var data = {'pseudo':'${nickname.value}','channel':'Hall'};
     var request = new HttpRequest()..open('POST', url)
+ 							..onLoadEnd.listen((e) => redirection() )
     				                       ..send(JSON.encode(data));
 
 }
