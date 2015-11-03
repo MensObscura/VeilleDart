@@ -66,6 +66,7 @@ void run(){
       getUsers();
      
      output.innerHtml += '<p>${message}</p>';
+    output.scrollTop = output.scrollHeight;
   }); 
   
   }
