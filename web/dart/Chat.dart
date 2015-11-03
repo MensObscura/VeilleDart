@@ -132,7 +132,7 @@ print('nop ${name} ');
 return -1;
 }Exception catch(e){
 print('Unknown exception: $e');
-return '''{"channels":["fail"]}''';
+return -1;
 }
 	
 	}
