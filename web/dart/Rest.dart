@@ -64,6 +64,7 @@ res.close();
 }Exception catch(e){
 print('Unknown exception: $e');
 }
+}
 
 void handlePostRequest(HttpRequest request) async{
 var jsonString = await request.transform(UTF8.decoder).join();
