@@ -2,12 +2,12 @@ import 'dart:core';
 
 class User {
 
-String _name;
+	String _name;
 
-String _channel;
+	String _channel;
 
 
-User(this._name);
+	User(this._name);
 
 	String get name => _name;
 

@@ -10,14 +10,14 @@ Storage localStorage = window.localStorage;
 void main() async {
 
   go.onClick.listen((MouseEvent event) {
-   	actionClick();
+    actionClick();
   });
 
-nickname.onKeyPress.listen((KeyboardEvent event) {
-	
-	if (new KeyEvent.wrap(event).keyCode == KeyCode.ENTER) 
-	actionClick();
-});
+  nickname.onKeyPress.listen((KeyboardEvent event) {
+   
+   if (new KeyEvent.wrap(event).keyCode == KeyCode.ENTER) 
+     actionClick();
+ });
 
 
 }
@@ -26,19 +26,19 @@ void actionClick(){
 
 
  String nick = nickname.value;
-    nick = nick.trim();
+ nick = nick.trim();
 
-    if(nick != '') {
-      post();
+ if(nick != '') {
+  post();
 
-      localStorage['username'] = nickname.value;
-       localStorage['channel'] = 'Hall';
+  localStorage['username'] = nickname.value;
+  localStorage['channel'] = 'Hall';
 
 
-    } else {
-      error.innerHtml = '<p>Le champ doit etre rempli</p>';
-    }
-    
+} else {
+  error.innerHtml = '<p>Le champ doit etre rempli</p>';
+}
+
 }
 
 
@@ -50,10 +50,10 @@ Future post() async{
 
 
 	var url = 'http://172.28.1.153:8080';
-    var data = {'pseudo':'${nickname.value}','channel':'Hall'};
-    var request = new HttpRequest()..open('POST', url)
- 							..onLoadEnd.listen((e) => redirection() )
-    				                       ..send(JSON.encode(data));
+  var data = {'pseudo':'${nickname.value}','channel':'Hall'};
+  var request = new HttpRequest()..open('POST', url)
+  ..onLoadEnd.listen((e) => redirection() )
+  ..send(JSON.encode(data));
 
 }
 

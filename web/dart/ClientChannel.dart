@@ -6,89 +6,89 @@ class ClientChannel {
  String channel;
  String nickname;
  DivElement output;
-  TextAreaElement input;
-  ButtonElement send ;
-  ButtonElement channels;
-  UListElement ulUser ;
-  DivElement title;
-  Storage localStorage ;
+ TextAreaElement input;
+ ButtonElement send ;
+ ButtonElement channels;
+ UListElement ulUser ;
+ DivElement title;
+ Storage localStorage ;
  WebSocket ws ;
-  String address;
+ String address;
 
 
-ClientChannel(){
+ ClientChannel(){
 
- output = querySelector('#output');
+   output = querySelector('#output');
    input = querySelector('#input');
-  send = querySelector('#send');
+   send = querySelector('#send');
    channels = querySelector('#channels');
    ulUser =  querySelector('#users');
    localStorage = window.localStorage;
-	title = querySelector('#title');
-  nickname =localStorage['username'];
-  channel =localStorage['channel'];
-  address ="ws://172.28.1.153:9090/${channel}";
+   title = querySelector('#title');
+   nickname =localStorage['username'];
+   channel =localStorage['channel'];
+   address ="ws://172.28.1.153:9090/${channel}";
 
- title.innerHtml ="<h1 class='text-center'>${channel}</h1>" ;
+   title.innerHtml ="<h1 class='text-center'>${channel}</h1>" ;
 
-}
+ }
 
-void run(){
+ void run(){
 
- 
- 
- print(address);
-  ws = new WebSocket(address);
+   
+   
+   print(address);
+   ws = new WebSocket(address);
 
-  
+   
 
-  send.onClick.listen((MouseEvent event) {
+   send.onClick.listen((MouseEvent event) {
      sendMessage();
+   });
+   
+   input.onKeyPress.listen((KeyboardEvent event) {
+     
+     if (new KeyEvent.wrap(event).keyCode == KeyCode.ENTER) 
+       sendMessage();
+   });
+
+   channels.onClick.listen((MouseEvent event) {
+    
+
+    
+    ws.close();
+    window.location.assign('channels.html');
+    
   });
-  
- input.onKeyPress.listen((KeyboardEvent event) {
-	
-	if (new KeyEvent.wrap(event).keyCode == KeyCode.ENTER) 
-	sendMessage();
-});
+   
 
-  channels.onClick.listen((MouseEvent event) {
-  
-
-  
-  ws.close();
-  window.location.assign('channels.html');
-  
-  });
-  
-
-  ws.addEventListener('message', (event) {
+   ws.addEventListener('message', (event) {
      String message = event.data;
      
      if(message.substring(0,3) == "***")
       getUsers();
-     
-     output.innerHtml += '<p>${message}</p>';
+    
+    output.innerHtml += '<p>${message}</p>';
     output.scrollTop = output.scrollHeight;
   }); 
-  
-  }
+   
+ }
 
 
 
-void requestComplete(request){
+ void requestComplete(request){
   ulUser.innerHtml='';
-   
-      var jsonString = request;
-  	 Map jsonData = JSON.decode(jsonString);
-      List<String> userList = jsonData['users'];
-      for (int i = 0; i < userList.length; i++) {
-        ulUser.innerHtml+= "<li>${userList[i]}</li>";
-      }
-   
- 
-    
-    
+  
+  var jsonString = request;
+  Map jsonData = JSON.decode(jsonString);
+  List<String> userList = jsonData['users'];
+  for (int i = 0; i < userList.length; i++) {
+    ulUser.innerHtml+= "<li>${userList[i]}</li>";
+  }
+  
+  
+  
+  
 
 }
 
@@ -96,33 +96,33 @@ void sendMessage(){
  String message = input.value;
  
 
-    message = message.trim();
+ message = message.trim();
 
-    if(message != '') {
-     
-      input.value = '';      
-      input.focus();
-      print(nickname+" dit : ${message}");
-      ws.send(nickname+" dit : ${message}");
-      }
+ if(message != '') {
+   
+  input.value = '';      
+  input.focus();
+  print(nickname+" dit : ${message}");
+  ws.send(nickname+" dit : ${message}");
+}
 }
 
 void getUsers(){
 
 
-var url = 'http://172.28.1.153:8080';
-    print(url);
-    var data = {'channel':'${channel}'};
-    Uri uri = new Uri(path: url, queryParameters : data);
-   HttpRequest.getString(uri.toString()).then((req){
+  var url = 'http://172.28.1.153:8080';
+  print(url);
+  var data = {'channel':'${channel}'};
+  Uri uri = new Uri(path: url, queryParameters : data);
+  HttpRequest.getString(uri.toString()).then((req){
    
     requestComplete(req);
+    
+  }) .catchError((Error error) {
    
-   }) .catchError((Error error) {
-   
-   	  ulUser.innerHtml= "<li>Request failed</li>";
-   	  print(error.toString());
-    });
+    ulUser.innerHtml= "<li>Request failed</li>";
+    print(error.toString());
+  });
 
 
 }

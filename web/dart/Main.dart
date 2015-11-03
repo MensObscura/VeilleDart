@@ -10,12 +10,12 @@ import 'Chat.dart';
 
 void main() async {
 
-Chat chat = new Chat();
+	Chat chat = new Chat();
 
-Rest rest = new Rest(chat);
+	Rest rest = new Rest(chat);
 
-rest.run();
-chat.run();
+	rest.run();
+	chat.run();
 
 }
 
