@@ -202,10 +202,10 @@ return list;
 
  return '''{"users":["Channel not found"]}''';
 }
-}
-
 }Exception catch(e){
 print('Unknown exception: $e');
 return '''{"user":["fail"]}''';
+}
+
 }
 }
