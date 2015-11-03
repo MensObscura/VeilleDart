@@ -10,6 +10,7 @@ class ClientChannel {
   ButtonElement send ;
   ButtonElement channels;
   UListElement ulUser ;
+  DivElement title;
   Storage localStorage ;
  WebSocket ws ;
   String address;
@@ -23,10 +24,12 @@ ClientChannel(){
    channels = querySelector('#channels');
    ulUser =  querySelector('#users');
    localStorage = window.localStorage;
+	title = querySelector('#title');
   nickname =localStorage['username'];
   channel =localStorage['channel'];
   address ="ws://172.28.1.153:9090/${channel}";
- 
+
+ title.innerHtml ="<h1 class='text-center'>${channel}</h1>" ;
 
 }
 
