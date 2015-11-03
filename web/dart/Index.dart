@@ -42,7 +42,7 @@ void actionClick(){
 }
 
 Future post() async{
-	var url = 'http://localhost:8080';
+	var url = 'http://172.28.1.153:8080';
     var data = {'pseudo':'${nickname.value}','channel':'Hall'};
     var request = new HttpRequest()..open('POST', url)
     				                       ..send(JSON.encode(data));

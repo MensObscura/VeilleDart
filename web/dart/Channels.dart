@@ -53,7 +53,7 @@ void main() {
 joinChannel(){
 
 if(selected != null && selected != ''){
-var url = 'http://localhost:8080';
+var url = 'http://172.28.1.153:8080';
     var data = {'nom':'${selected}','user':'${nickname}','channel':'${channel}','action':'join'};
   
     var request = new HttpRequest()..open('POST', url)
@@ -70,7 +70,7 @@ adding.innerHtml="<p>Veuillez choisir un channel</p>";
 addChannel(){
 
 
-var url = 'http://localhost:8080';
+var url = 'http://172.28.1.153:8080';
 var nameChannel = name.value;
  nameChannel = nameChannel.replaceAll(" ","_");
     var data = {'nom':'${nameChannel}','user':'${nickname}','channel':'${channel}','action':'add'};
@@ -115,7 +115,7 @@ getChannels(){
 
   }
   
- var url = 'http://localhost:8080';
+ var url = 'http://172.28.1.153:8080';
     print(url);
     var request = new HttpRequest();
     request..open('GET', url)

@@ -25,7 +25,7 @@ ClientChannel(){
    localStorage = window.localStorage;
   nickname =localStorage['username'];
   channel =localStorage['channel'];
-  address ="ws://localhost:9090/${channel}";
+  address ="ws://172.28.1.153:9090/${channel}";
  
 
 }
@@ -106,7 +106,7 @@ void sendMessage(){
 void getUsers(){
 
 
-var url = 'http://localhost:8080';
+var url = 'http://172.28.1.153:8080';
     print(url);
     var data = {'channel':'${channel}'};
     Uri uri = new Uri(path: url, queryParameters : data);
