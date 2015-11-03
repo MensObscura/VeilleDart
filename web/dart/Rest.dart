@@ -36,7 +36,7 @@ handleDefaultRequest(request);
 
 
 void handleGetRequest(HttpRequest request) async{
-
+try {
 Map jsonData = request.uri.queryParameters;
 
 if(jsonData['channel'] != null && jsonData['channel'] != ''){
@@ -61,6 +61,8 @@ addCorsHeaders(res);
 res.write(jsonString);
 res.close();
 }
+}Exception catch(e){
+print('Unknown exception: $e');
 }
 
 void handlePostRequest(HttpRequest request) async{
@@ -146,6 +148,7 @@ res.headers.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Conte
 
 
 String getChannels(){
+try{
 List<Channel> channels =_chat.channels;
 
 String list ='''{"channels":[''';
@@ -162,6 +165,12 @@ list = list.substring(0,list.length-1);
 list+=''']}''';
 
 return list;
+
+}Exception catch(e){
+print('Unknown exception: $e');
+return '''{"channels":["fail"]}''';
+}
+
 }
 
 
@@ -169,7 +178,7 @@ return list;
 
 
 String getUsers(String channel){
-
+try{
 int index = findChannel(channel);
 
 if(index > -1){
@@ -195,5 +204,8 @@ return list;
 }
 }
 
-
+}Exception catch(e){
+print('Unknown exception: $e');
+return '''{"user":["fail"]}''';
+}
 }
