@@ -5,6 +5,9 @@ Ce répo contient l'application vitrine de notre veille techno, un chat multi-ch
 
 ##TP
 
+ - Tout d'abord rendez vous sur ces deux liens afin de vous familiariser avec la syntaxe Dart : https://dartpad.dartlang.org/ac81a4254cefb1abfdad et https://dartpad.dartlang.org/5338df7e9b313f8f1a13
+ - Une fois ces exercices rélisés, vous pourez implémenter dans le chat une méthode qui permet de supprimer un channel, puis une autre qui permet de stocker l'historique des conversations d'une channel afin de les voir lorsqu'on switch de channel.
+ - Enfin ajouter le code nécéssaire à l'envois de message "privé" avec la syntaxe "/username", le message qui suivra ne sera visible que par la personne ciblée si celle-ci se trouve sur le channel de l'expéditeur.
 
 
 
