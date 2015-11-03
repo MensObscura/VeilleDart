@@ -71,7 +71,9 @@ addChannel(){
 
 
 var url = 'http://localhost:8080';
-    var data = {'nom':'${name.value}','user':'${nickname}','channel':'${channel}','action':'add'};
+var nameChannel = name.value;
+ nameChannel = nameChannel.replaceAll(" ","_");
+    var data = {'nom':'${nameChannel}','user':'${nickname}','channel':'${channel}','action':'add'};
   
     var request = new HttpRequest()..open('POST', url)
     				               ..send(JSON.encode(data));
