@@ -61,7 +61,7 @@ addCorsHeaders(res);
 res.write(jsonString);
 res.close();
 }
-}Exception catch(e){
+}catch(e){
 print('Unknown exception: $e');
 }
 }
