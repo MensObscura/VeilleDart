@@ -60,8 +60,7 @@ Nous vous fournissons les pages HTML ainsi que les squelettes en Dart que vous a
 
  Une fois ces exercices réalisés, vous pourrez implémenter différentes améliorations à notre application de Chat :
  
- **/!\ Afin de préserver la bonne intégrité du serveur (svp), cette partie sera à réaliser localement sur votre machine, via le répertoire prêt à l'emploi *web_local*. 
- **
+ **/!\ Afin de préserver la bonne intégrité du serveur (svp), cette partie sera à réaliser localement sur votre machine, via le répertoire prêt à l'emploi "*web_local*."**
   
  * Stocker l'historique des conversations d'un channel afin de les voir lorsque l'on switch de channel. 
  * Ajouter la possibilité de supprimer un channel. 
