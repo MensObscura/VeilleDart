@@ -28,7 +28,7 @@ class ClientChannel {
    nickname =localStorage['username'];
    channel =localStorage['channel'];
    address ="ws://localhost:9090/${channel}";
-
+   
    title.innerHtml ="<h1 class='text-center'>${channel}</h1>" ;
 
  }
@@ -40,7 +40,6 @@ class ClientChannel {
    print(address);
    ws = new WebSocket(address);
 
-   
 
    send.onClick.listen((MouseEvent event) {
      sendMessage();

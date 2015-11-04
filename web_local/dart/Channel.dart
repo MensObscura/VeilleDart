@@ -9,7 +9,7 @@ class Channel {
 	String _name;
 	List<User> _users;
 	List<WebSocket> _connections;
-
+	//Message List 
 
 	Channel(this._name) {
 		_users = new List<User>();
@@ -21,6 +21,7 @@ class Channel {
 	String get name => _name;
 	List<WebSocket> get connections => _connections;
 	List<User> get users => _users;
+	//Getter Message List
 
 
 
@@ -79,6 +80,11 @@ class Channel {
 
 			print("*** "+user+ " left the channel " + _name+" ***");
 		}
+	}
+
+	void addMessageToHistoric(String message){
+		//ToDO
+
 	}
 
 

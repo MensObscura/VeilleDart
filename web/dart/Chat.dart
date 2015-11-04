@@ -74,8 +74,6 @@ class Chat{
 	void add(WebSocket con, String  name){
 
 		
-		
-		
 		int channel = getChannel(name);
 		
 		if( channel > -1){
@@ -91,8 +89,6 @@ class Chat{
 				}
 				
 			}else{
-				
-				
 				this.send("*** Can't join the channel " + name+" ***", name);
 			}
 			

@@ -58,7 +58,7 @@ class Chat{
 	}
 	
 	void send(message, name){
-		
+		//ToDO gerer ici l'envoi de message privé
 		int channel = getChannel(name);
 		if( channel > -1){
 			List<WebSocket> connections = _channels.elementAt(channel).connections;
