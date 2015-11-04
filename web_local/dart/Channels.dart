@@ -6,6 +6,7 @@ DivElement divChannel =  querySelector('#divchannels');
 ButtonElement join = querySelector('#join');
 DivElement adding = querySelector('#adding');
 InputElement name;
+DivElement error;
 Storage localStorage = window.localStorage;
 String nickname =localStorage['username'];
 String channel =localStorage['channel'];
@@ -31,16 +32,27 @@ void main() {
   add.onClick.listen((MouseEvent event) {
     add.disabled=true;
     adding.innerHtml="";
-    adding.innerHtml="<label>Nom:</label><input type='login' class='form-control' id='nom'><button class='btn btn-default' id='send' >Add Channel</button>";
+    adding.innerHtml="<label>Nom:</label><input type='login' class='form-control' id='nom'><button class='btn btn-default' id='send' >Add Channel</button><div id='error'></div>";
     
     ButtonElement send = querySelector('#send');
     name = querySelector('#nom');
+    error = querySelector('#error');
     send.onClick.listen((MouseEvent event) {
+    
+     String nick = name.value;
+ 	nick = nick.trim();
+
+ 	if(nick != '') {
+
+
       addChannel();
       getChannels();
       add.disabled=false;
       
       adding.innerHtml="";
+       }else {
+  	error.innerHtml = '<p>Le champ doit etre rempli</p>';
+	}
       
     });
     
