@@ -23,15 +23,15 @@ cp -v ~/.bashrc ~/.bashsave
 
 echo '----------Recuperation de DART SDK------------'
 
-wget https://storage.googleapis.com/dart-archive/channels/dev/release/1.13.0-dev.7.3/sdk/dartsdk-linux-x64-release.zip
+wget  -P /local/$USER/VeilleDart/ https://storage.googleapis.com/dart-archive/channels/dev/release/1.13.0-dev.7.3/sdk/dartsdk-linux-x64-release.zip
 
 echo '----------Decompression dans votre fichier local----------'
 
 mkdir /local/$USER/VeilleDart
 
-unzip dartsdk-linux-x64-release.zip -d /local/$USER/VeilleDart
+unzip  /local/$USER/VeilleDart/dartsdk-linux-x64-release.zip -d /local/$USER/VeilleDart
 
-rm -f dartsdk-linux-x64-release.zip
+rm -f  /local/$USER/VeilleDart/dartsdk-linux-x64-release.zip
 
 echo '----------Export dans PATH dart/bin---------'
 
@@ -55,15 +55,16 @@ echo "alias dart='/local/$USER/VeilleDart/dart-sdk/bin/dart'" >> ~/.bashrc
 
 echo '----------Recuperation de DARTIUM----------'
 
-wget https://storage.googleapis.com/dart-archive/channels/dev/release/1.13.0-dev.7.3/dartium/dartium-linux-x64-release.zip
+
+
+wget -P /local/$USER/VeilleDart/ https://storage.googleapis.com/dart-archive/channels/dev/release/1.13.0-dev.7.3/dartium/dartium-linux-x64-release.zip
 
 
 echo '----------Decompression dans votre fichier local----------'
 
-unzip dartium-linux-x64-release.zip -d /local/$USER/VeilleDart
+unzip /local/$USER/VeilleDart/dartium-linux-x64-release.zip -d /local/$USER/VeilleDart
 
-rm -f dartium-linux-x64-release.zip 
-
+rm -f /local/$USER/VeilleDart/dartium-linux-x64-release.zip 
 mv /local/$USER/VeilleDart/dartium-lucid64-full-dev-1.13.0-dev.7.3.0 /local/$USER/VeilleDart/dartium
 
 echo '----------Création de la commande dartium----------'
