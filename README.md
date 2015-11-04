@@ -46,19 +46,24 @@ Le TP se décompose en 2 parties, une première partie avec deux exercices à r�
 
 #### 1/ Exercices
 
-Nous avons réalisé deux mini-applications, *un jeu + ou -* et une *ToDo list* pour vous familiariser avec Dart et axé autour de la manipulation du DOM.
+Nous avons réalisé deux mini-applications, *un Devin (+ ou -)* et une *ToDo list* pour vous familiariser avec Dart et axé autour de la manipulation du DOM.
 Nous vous fournissons les pages HTML ainsi que les squelettes en Dart que vous aurez à compléter.
 (La fiche de synthèse contient la liste des fonctions Dart essentielles dont vous aurez besoin)
 
  Tout d'abord rendez vous sur ces deux liens afin de vous familiariser avec la syntaxe Dart :
- * https://dartpad.dartlang.org/f9e34cdfb28e7098b18a 
- * https://dartpad.dartlang.org/3a3be729394c3d31c380
+ * Devin : https://dartpad.dartlang.org/f9e34cdfb28e7098b18a 
+ * ToDo List : https://dartpad.dartlang.org/3a3be729394c3d31c380
  
 
  
 #### 2/ Amélioration du chat
 
- - Une fois ces exercices rélisés, vous pourez implémenter dans le chat une méthode qui permet de stocker l'historique des conversations d'une channel afin de les voir lorsqu'on switch de channel. Puis une autre qui permet de supprimer un channel.
+ Une fois ces exercices réalisés, vous pourrez implémenter différentes améliorations à notre application de Chat :
  
- - Enfin ajouter le code nécéssaire à l'envois de message "privé" avec la syntaxe "/username", le message qui suivra ne sera visible que par la personne ciblée si celle-ci se trouve sur le channel de l'expéditeur.
+ **/!\ Afin de préserver la bonne intégrité du serveur (svp), cette partie sera à réaliser localement sur votre machine, via le répertoire prêt à l'emploi *web_local*. 
+ **
+  
+ * Stocker l'historique des conversations d'un channel afin de les voir lorsque l'on switch de channel. 
+ * Ajouter la possibilité de supprimer un channel. 
+ * Enfin ajouter le code nécéssaire à l'envoi de messages privés avec la syntaxe "/username", le message qui suivra ne sera visible que par la personne ciblée, si celle-ci se trouve sur le channel de l'expéditeur.
 
