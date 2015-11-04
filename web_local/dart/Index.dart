@@ -49,7 +49,7 @@ void redirection(){
 Future post() async{
 
 
-	var url = 'http://localhost:8080';
+  var url = 'http://localhost:8080';
   var data = {'pseudo':'${nickname.value}','channel':'Hall'};
   var request = new HttpRequest()..open('POST', url)
   ..onLoadEnd.listen((e) => redirection() )

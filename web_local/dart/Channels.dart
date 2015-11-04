@@ -10,15 +10,11 @@ Storage localStorage = window.localStorage;
 String nickname =localStorage['username'];
 String channel =localStorage['channel'];
 String selected ;
-void main() {
 
 
+void main() { 
 
- 
-
-	getChannels();
- 
- 
+getChannels(); 
  
  
   join.onClick.listen((MouseEvent event) {
@@ -86,9 +82,6 @@ addChannel(){
 
 getChannels(){
 
-
-
-
   requestComplete(HttpRequest request) {
     divChannel.innerHtml='';
     if (request.status == 200) {
@@ -123,3 +116,13 @@ getChannels(){
   ..send('');
   
 }
+
+
+
+
+removeChannel(String Channel){
+
+	//ToDO
+
+}
+
