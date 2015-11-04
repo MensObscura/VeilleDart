@@ -81,9 +81,13 @@ class Chat{
 			int index = _channels.elementAt(channel).connections.indexOf(con);
 			
 			if(index > -1){ 
-				
+				try{
 				User user = _channels.elementAt(channel).users.elementAt(index);
 				this.send("*** "+user.name+ " joined the channel " + name+" ***", name);
+				}catch(e){
+				print('Unknown exception: $e');
+				}
+				
 			}else{
 				this.send("*** Can't join the channel " + name+" ***", name);
 			}
@@ -102,10 +106,15 @@ class Chat{
 			
 			if( index > -1 ){
 				_channels.elementAt(channel).connections.removeAt(index);
+				try{
 				User user = _channels.elementAt(channel).users.elementAt(index);
+				
 				_channels.elementAt(channel).users.removeAt(index);
 				
 				this.send("*** "+user.name+ " left the channel " + name+" ***", name);
+				}catch(e){
+				print('Unknown exception: $e');
+				}
 			}else{
 				this.send("*** Can't left the channel " + name+" ***", name);
 			}

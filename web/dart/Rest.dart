@@ -108,6 +108,9 @@ class Rest {
 
 	void addChannel(String dest, String current, String user) {
 
+		if(_chat.channels == null){
+					_chat.channels = new List<Channels>();
+				}
 
 		_chat.channels.add(new Channel(dest));
 
